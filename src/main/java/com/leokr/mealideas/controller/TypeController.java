@@ -14,17 +14,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TypeController {
 
     @Autowired
     TypeRepository typeRepository;
 
-    @GetMapping("types")
+    @GetMapping("/types")
     public ResponseEntity<List<Type>> getAll() {
         try {
-            List<Type> types = new ArrayList<Type>();
 
-            typeRepository.findAll().forEach(types::add);
+            List<Type> types = new ArrayList<Type>(typeRepository.findAll());
 
             if(types.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

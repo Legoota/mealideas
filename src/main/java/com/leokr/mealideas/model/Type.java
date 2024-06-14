@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 @Table(name="types")
 public class Type {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 

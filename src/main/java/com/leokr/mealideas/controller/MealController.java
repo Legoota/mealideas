@@ -14,17 +14,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MealController {
 
     @Autowired
     MealRepository mealRepository;
 
-    @GetMapping("meals")
+    @GetMapping("/meals")
     public ResponseEntity<List<Meal>> getAll() {
         try {
-            List<Meal> meals = new ArrayList<Meal>();
 
-            mealRepository.findAll().forEach(meals::add);
+            List<Meal> meals = new ArrayList<Meal>(mealRepository.findAll());
 
             if(meals.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -36,7 +36,7 @@ public class MealController {
         }
     }
 
-    @GetMapping("meals/type/{type}")
+    @GetMapping("/meals/type/{type}")
     public ResponseEntity<List<Meal>> findByType(@PathVariable("type")long type) {
         try {
             List<Meal> meals = mealRepository.findByType(type);
@@ -50,24 +50,20 @@ public class MealController {
         }
     }
 
-    @GetMapping("meals/{id}")
+    @GetMapping("/meals/{id}")
     public ResponseEntity<Meal> getMealById(@PathVariable("id")long id) {
         Optional<Meal> meal = mealRepository.findById(id);
 
-        if (meal.isPresent()) {
-            return new ResponseEntity<>(meal.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return meal.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("meals/getAllBefore")
+    @GetMapping("/meals/getAllBefore")
     public ResponseEntity<List<Meal>> getAllBefore(@RequestBody Date date) {
         List<Meal> meals = mealRepository.GetMealsBeforeLastUse(date);
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 
-    @GetMapping("meals/getAllBeforeForType/{type}")
+    @GetMapping("/meals/getAllBeforeForType/{type}")
     public ResponseEntity<List<Meal>> getAllBeforeForType(@RequestBody Date date, @PathVariable("type")long type) {
         List<Meal> meals = mealRepository.GetMealsBeforeLastUseAndType(date, type);
         return new ResponseEntity<>(meals, HttpStatus.OK);
