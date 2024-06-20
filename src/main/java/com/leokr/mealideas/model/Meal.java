@@ -32,6 +32,14 @@ public class Meal {
         this.type = type;
     }
 
+    public Meal(String name, Date date_add, int counter, long type) {
+        this.name = name;
+        this.date_add = date_add;
+        this.date_lastuse = null;
+        this.counter = counter;
+        this.type = type;
+    }
+
     public long getId() {
         return this.id;
     }

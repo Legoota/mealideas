@@ -73,7 +73,7 @@ public class MealController {
     public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) {
         try {
             Meal _meal = mealRepository
-                    .save(new Meal(meal.getName(), meal.getDate_add(), meal.getDate_lastuse(), meal.getCounter(), meal.getType()));
+                    .save(new Meal(meal.getName(), meal.getDate_add(), meal.getCounter(), meal.getType()));
             return new ResponseEntity<>(_meal, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
