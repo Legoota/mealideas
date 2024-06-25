@@ -21,23 +21,26 @@ public class Meal {
     private Date date_lastuse;
     private int counter;
     private long type;
+    private String notes;
 
     public Meal() { super(); }
 
-    public Meal(String name, Date date_add, Date date_lastuse, int counter, long type) {
+    public Meal(String name, Date date_add, Date date_lastuse, int counter, long type, String notes) {
         this.name = name;
         this.date_add = date_add;
         this.date_lastuse = date_lastuse;
         this.counter = counter;
         this.type = type;
+        this.notes = notes;
     }
 
-    public Meal(String name, Date date_add, int counter, long type) {
+    public Meal(String name, Date date_add, int counter, long type, String notes) {
         this.name = name;
         this.date_add = date_add;
         this.date_lastuse = null;
         this.counter = counter;
         this.type = type;
+        this.notes = notes;
     }
 
     public long getId() {
@@ -63,6 +66,7 @@ public class Meal {
     public long getType() {
         return this.type;
     }
+    public String getNotes() { return this.notes; }
 
     public void setName(String name) {
         this.name = name;
@@ -83,6 +87,7 @@ public class Meal {
     public void setType(long type) {
         this.type = type;
     }
+    public void setNotes(String notes) { this.notes = notes; }
 
     @Override
     public String toString() {
