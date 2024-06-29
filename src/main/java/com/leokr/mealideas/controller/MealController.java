@@ -91,6 +91,7 @@ public class MealController {
             _meal.setDate_lastuse(meal.getDate_lastuse());
             _meal.setCounter(meal.getCounter());
             _meal.setType(meal.getType());
+            _meal.setNotes(meal.getNotes());
             return new ResponseEntity<>(mealRepository.save(_meal), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
