@@ -2,7 +2,9 @@ package com.leokr.mealideas.controller;
 
 import com.leokr.mealideas.model.Meal;
 import com.leokr.mealideas.repository.MealRepository;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +66,7 @@ public class MealController {
     }
 
     @GetMapping("/meals/getAllBeforeForType/{type}")
-    public ResponseEntity<List<Meal>> getAllBeforeForType(@RequestBody Date date, @PathVariable("type")long type) {
+    public ResponseEntity<List<Meal>> getAllBeforeForType(@PathParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @PathVariable("type")long type) {
         List<Meal> meals = mealRepository.GetMealsBeforeLastUseAndType(date, type);
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
