@@ -35,7 +35,7 @@ public class CustomMealRepositoryImpl implements CustomMealRepository {
     @Override
     @Transactional
     public int UpdateLastUseForMeals(List<Long> ids) {
-        Query query = entityManager.createQuery("update Meal set date_lastuse = ?1 where id in ?2");
+        Query query = entityManager.createQuery("update Meal set date_lastuse = ?1, counter = counter + 1 where id in ?2");
 
         entityManager.joinTransaction();
 
